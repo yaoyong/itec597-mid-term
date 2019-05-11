@@ -17,7 +17,7 @@ public class MissionTrip {
         }
     }
 
-    private boolean debug = true;
+    private boolean debug;
 
     /**
      * 计算从起点到终点所有的可能走法总数
@@ -72,8 +72,11 @@ public class MissionTrip {
                     .append(dirs[i]).append("-> "));
             }
         }
-        System.out.printf("Sum: %d. Time Spent: %.2fS%n", sum,
-            (System.currentTimeMillis() - now) / 1000.0);
+
+        if (debug) {
+            System.out.printf("Sum: %d. Time Spent: %.2fS%n", sum,
+                (System.currentTimeMillis() - now) / 1000.0);
+        }
         return sum;
     }
 
@@ -83,6 +86,10 @@ public class MissionTrip {
 
         int[][] map = new int[3][3];
         map[1][2] = map[2][1] = 1;
+        mt.resolve(map);
+
+        mt.debug = true;
+        map[2][1] = 0;
         mt.resolve(map);
 
         mt.debug = false;

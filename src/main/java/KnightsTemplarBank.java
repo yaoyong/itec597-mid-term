@@ -54,13 +54,18 @@ public class KnightsTemplarBank {
         } else {
             all = -1;
         }
-        System.out.println(all + " " + min);
+
+        if (debug)
+            System.out.println(all + " " + min);
         return new int[]{all, min};
     }
+
+    private boolean debug;
 
     public static void main(String[] args) {
         final long now = System.currentTimeMillis();
         KnightsTemplarBank bank = new KnightsTemplarBank();
+        bank.debug = true;
         bank.resolve(5, new int[]{1, 2, 5});
         bank.resolve(3, new int[]{2, 5, 25});
         bank.resolve(10000, new int[]{1, 5, 10, 25});
