@@ -9,19 +9,18 @@ public class MissionTrip {
      * @param paths 旅途，当某处值为1时不允许走过，为0时可以正常走过
      */
     public int resolve(int[][] paths) {
-        final long now = System.currentTimeMillis();
         int sum = 0;
         int r = paths.length, c = paths[0].length;
-        Queue<Integer> nodeQ = new LinkedList<>();
-        Queue<boolean[]> visitQ = new LinkedList<>();
-        nodeQ.offer(0);
-        visitQ.offer(new boolean[r * c]);
+        Queue<Integer> nodes = new LinkedList<>();
+        Queue<boolean[]> visited = new LinkedList<>();
+        nodes.offer(0);
+        visited.offer(new boolean[r * c]);
 
         int[] x = {-1, 1, 0, 0};
         int[] y = {0, 0, -1, 1};
-        while (!nodeQ.isEmpty()) {
-            Integer node = nodeQ.poll();
-            boolean[] visit = visitQ.poll();
+        while (!nodes.isEmpty()) {
+            Integer node = nodes.poll();
+            boolean[] visit = visited.poll();
             if (node == null || visit == null || visit[node])
                 continue;
 
@@ -30,8 +29,6 @@ public class MissionTrip {
             if (nr == r - 1 && nc == c - 1) {
                 sum++;
                 continue;
-            } else if (paths[nr][nc] == 1) {
-                continue;
             }
 
             for (int i = 0; i < x.length; i++) {
@@ -39,8 +36,8 @@ public class MissionTrip {
                 if (cr < 0 || cr >= r || cc < 0 || cc >= c ||
                     visit[cr * c + cc] || paths[cr][cc] == 1)
                     continue;
-                nodeQ.offer(cr * c + cc);
-                visitQ.offer(visit.clone());
+                nodes.offer(cr * c + cc);
+                visited.offer(visit.clone());
             }
         }
         return sum;
