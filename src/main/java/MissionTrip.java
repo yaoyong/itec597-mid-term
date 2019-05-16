@@ -12,6 +12,7 @@ public class MissionTrip {
         int sum = 0;
         int r = paths.length, c = paths[0].length;
         Queue<Integer> nodes = new LinkedList<>();
+        // 对r * c <= 64的场景，也可以考虑使用long（64位），基于位运算来判定是否走过
         Queue<boolean[]> visited = new LinkedList<>();
         nodes.offer(0);
         visited.offer(new boolean[r * c]);
@@ -58,8 +59,8 @@ public class MissionTrip {
         for (int i = 4; i <= 6; i++) {
             final long now = System.currentTimeMillis();
             long sum = mt.resolve(new int[i][i]);
-            System.out.printf("Size: %d, Sum: %d. Time Spent: %.2fS%n", sum,
-                i, (System.currentTimeMillis() - now) / 1000.0);
+            System.out.printf("Size: %d, Sum: %d. Time Spent: %.2fS%n", i,
+                sum, (System.currentTimeMillis() - now) / 1000.0);
         }
     }
 }
