@@ -21,16 +21,16 @@ public class BibleScholar {
      * </pre>
      */
     public String[] resolve() {
-        Scanner scw = new Scanner(getClass().getResourceAsStream("/stopwords.txt"));
         Set<String> stopWords = new HashSet<>();
-        while (scw.hasNextLine())
-            stopWords.add(scw.nextLine());
+        try (Scanner scw = new Scanner(getClass().getResourceAsStream("/stopwords.txt"))) {
+            while (scw.hasNextLine())
+                stopWords.add(scw.nextLine().trim());
+        }
 
-        Scanner scb = new Scanner(getClass().getResourceAsStream("/kjv.txt"));
         Map<String, Integer> map = new HashMap<>();
-        while (scb.hasNextLine()) {
-            String[] words = scb.nextLine().split("\\s+");
-            for (String word : words) {
+        try (Scanner scb = new Scanner(getClass().getResourceAsStream("/kjv.txt"))) {
+            while (scb.hasNext()) {
+                String word = scb.next();
                 int len = word.length(), begin = 0, end = len - 1;
                 while (begin < len && !Character.isAlphabetic(word.charAt(begin)))
                     begin++;
