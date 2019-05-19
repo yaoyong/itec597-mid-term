@@ -41,7 +41,7 @@ public class KnightsTemplarBank {
         int min = -1;
         if (all > 0) {
             int[] ret = new int[amount + 1];
-            Arrays.fill(ret, Integer.MAX_VALUE);
+            Arrays.fill(ret, amount / options[0] + 1);
             ret[0] = 0;
             for (int i = options[0]; i <= amount; i++) {
                 for (int coin : options) {
@@ -69,6 +69,7 @@ public class KnightsTemplarBank {
         bank.resolve(5, new int[]{1, 2, 5});
         bank.resolve(3, new int[]{2, 5, 25});
         bank.resolve(10000, new int[]{1, 5, 10, 25});
+        bank.resolve(6249, new int[]{186, 419, 83, 408});
         System.out.printf("Time Spent: %.2fS%n", (System.currentTimeMillis() - now) / 1000.0);
     }
 
