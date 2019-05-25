@@ -70,13 +70,13 @@ public class BibleScholar {
         final String[] result = new String[COUNT * 2];
         for (int i = COUNT - 1; i >= 0; i--) {
             Entry<String, Integer> entry = minPQ.poll();
-            if (entry == null) continue;
+            if (entry == null) break;
             result[i] = entry.getKey() + ":" + entry.getValue();
         }
 
         for (int i = COUNT; i < COUNT * 2; i++) {
             Entry<String, Integer> entry = maxPQ.poll();
-            if (entry == null) continue;
+            if (entry == null) break;
             result[i] = entry.getKey() + ":" + entry.getValue();
         }
         return result;
