@@ -19,17 +19,9 @@ public class Monastery {
         }
 
         int find(int p) {
-            validate(p);
             while (p != parent[p])
                 p = parent[p];
             return p;
-        }
-
-        private void validate(int p) {
-            int n = parent.length;
-            if (p < 0 || p >= n) {
-                throw new IllegalArgumentException("Invalid index " + p);
-            }
         }
 
         void union(int p, int q) {
@@ -81,7 +73,7 @@ public class Monastery {
 
         private static Direction[] TO_REMOVE = {NORTH, EAST};
 
-        private int code;
+        private final int code;
 
         Direction(int code) {
             this.code = code;
