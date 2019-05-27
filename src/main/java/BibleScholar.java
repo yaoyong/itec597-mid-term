@@ -24,13 +24,14 @@ public class BibleScholar {
      */
     public String[] resolve() throws FileNotFoundException{
         Set<String> stopWords = new HashSet<>();
-
+        //读取stopwords.txt
         try (Scanner scw = new Scanner(getClass().getResourceAsStream("main/resources/stopwords.txt"))) {
             while (scw.hasNextLine())
                 stopWords.add(scw.nextLine().trim());
         }
 
         Map<String, Integer> map = new HashMap<>();
+        //读取kjv.txt
         try (Scanner scb = new Scanner(getClass().getResourceAsStream("main/resources/kjv.txt"))) {
             while (scb.hasNext()) {
                 String word = scb.next();
@@ -53,7 +54,9 @@ public class BibleScholar {
         Comparator<Entry<String, Integer>> comp = (a, b) -> a.getValue().equals(b.getValue()) ?
             a.getKey().compareTo(b.getKey()) : a.getValue() - b.getValue();
         PriorityQueue<Entry<String, Integer>> minPQ = new PriorityQueue<>(COUNT, comp);
+        //统计次数最少的list
         PriorityQueue<Entry<String, Integer>> maxPQ = new PriorityQueue<>(COUNT, comp.reversed());
+        //统计次数最多的list
         for (Entry<String, Integer> entry : map.entrySet()) {
             if (minPQ.size() < COUNT) {
                 minPQ.offer(entry);
@@ -89,5 +92,6 @@ public class BibleScholar {
         final long now = System.currentTimeMillis();
         Stream.of(new BibleScholar().resolve()).forEach(System.out::println);
         System.out.printf("Time Spent: %.2fS%n", (System.currentTimeMillis() - now) / 1000.0);
+        //打印执行时间
     }
 }
