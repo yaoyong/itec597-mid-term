@@ -22,6 +22,7 @@ public class KnightsTemplarBank {
         Arrays.sort(options);
 
         int[][] dp = new int[amount + 1][options.length];
+        //可使用的面值
         for (int i = options[0]; i <= amount; i++) {
             dp[i][0] = i % options[0] == 0 ? 1 : 0;
         }
@@ -36,7 +37,7 @@ public class KnightsTemplarBank {
                 }
             }
         }
-
+        //兑换规则
         int all = dp[amount][options.length - 1];
         int min = -1;
         if (all > 0) {
@@ -65,6 +66,7 @@ public class KnightsTemplarBank {
     public static void main(String[] args) {
         final long now = System.currentTimeMillis();
         KnightsTemplarBank bank = new KnightsTemplarBank();
+        //测试用例
         bank.debug = true;
         bank.resolve(5, new int[]{1, 2, 5});
         bank.resolve(3, new int[]{2, 5, 25});
